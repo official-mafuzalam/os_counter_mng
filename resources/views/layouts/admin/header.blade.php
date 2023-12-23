@@ -55,7 +55,7 @@
 
                 <div class="flex flex-row items-center justify-end gap-2">
                     <a class="hs-dark-mode-active:hidden block hs-dark-mode group items-center text-gray-600 hover:text-blue-600 font-medium dark:text-gray-400 dark:hover:text-gray-500"
-                        href="#!" data-hs-theme-click-value="dark">
+                        data-hs-theme-click-value="dark">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" viewBox="0 0 16 16">
                             <path
@@ -63,7 +63,7 @@
                         </svg>
                     </a>
                     <a class="hs-dark-mode-active:block hidden hs-dark-mode group items-center text-gray-600 hover:text-blue-600 font-medium dark:text-gray-400 dark:hover:text-gray-500"
-                        href="#!" data-hs-theme-click-value="light">
+                        data-hs-theme-click-value="light">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" viewBox="0 0 16 16">
                             <path

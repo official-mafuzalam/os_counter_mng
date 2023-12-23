@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\IncomeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 
@@ -104,13 +105,24 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/users', [UserController::class, 'user'])->name('admin.user');
 
         Route::get('/users/{user}', [UserController::class, 'show'])->name('admin.users.show');
+        
         Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+        
         Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('admin.users.roles');
+       
         Route::delete('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])->name('admin.users.roles.remove');
+        
         Route::post('/users/{user}/permissions', [UserController::class, 'givePermission'])->name('admin.users.permissions');
+        
         Route::delete('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('admin.users.permissions.revoke');
 
         Route::get('/check-permissions',[PermissionController::class, 'checkPer']);
+
+
+
+        Route::get('/income', [IncomeController::class,'index'])->name('admin.income.index');
+
+
 
     });
 
