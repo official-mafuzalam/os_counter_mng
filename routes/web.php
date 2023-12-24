@@ -122,6 +122,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
         Route::get('/income', [IncomeController::class,'index'])->name('admin.income.index');
 
+        Route::post('/income', [IncomeController::class,'dataSave'])->name('admin.income.dataSave');
+        
+
+
+        Route::get('/income_from', [IncomeController::class,'income_from'])->name('admin.income.income_from');
+        
+        Route::post('/income_from', [IncomeController::class,'income_fromSave'])->name('admin.income.income_fromSave');
+
 
 
     });

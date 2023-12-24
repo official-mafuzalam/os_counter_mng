@@ -2,7 +2,7 @@
     <x-slot name="main">
 
         @section('page-title')
-            <title>Income</title>
+            <title>Income from</title>
         @endsection
 
         <div class="w-full pt-5 px-4 sm:px-6 md:px-8">
@@ -23,20 +23,15 @@
                                         class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                                         <div>
                                             <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                                                Income
+                                                Income from
                                             </h2>
                                             <p class="text-sm text-gray-600 dark:text-gray-400">
-                                                Add Income, edit and more.
+                                                Add Income from, edit and more.
                                             </p>
                                         </div>
 
                                         <div>
                                             <div class="inline-flex gap-x-2">
-                                                <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
-                                                    href="{{ route('admin.income.income_from') }}">
-                                                    View all category
-                                                </a>
-
                                                 <button data-hs-overlay="#hs-focus-management-modal"
                                                     class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
                                                     <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +74,7 @@
 
                                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
 
-                                            @foreach ($incomes as $role)
+                                            @foreach ($income_from as $role)
                                                 <tr>
                                                     <td class="h-px w-72 whitespace-nowrap">
                                                         <div class="px-6 py-3">
@@ -178,36 +173,14 @@
                     </svg>
                 </button>
             </div>
-            <form action="{{ route('admin.income.dataSave') }}" method="post">
+            <form action="{{ route('admin.income.income_fromSave') }}" method="post">
                 @csrf
-
                 <div class="p-4 overflow-y-auto">
-                    <label for="name" class="block text-sm font-medium mb-2 dark:text-white">Bus Name</label>
-                    <select name="name" id="name"
-                        class="py-2 px-3 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
-                        <option selected>Select bus</option>
-                        @foreach ($income_from as $item)
-                            <option value="{{ $item->name }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
+                    <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Name</label>
+                    <input type="text" id="input-label" name="name" required
+                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                        placeholder="Comfort Line" autofocus>
                 </div>
-
-                <div class="p-4 overflow-y-auto">
-                    <label for="quantity" class="block text-sm font-medium mb-2 dark:text-white">Quantity</label>
-                    <input type="number" id="quantity"
-                        class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                        placeholder="10">
-                </div>
-
-                <div class="p-4 overflow-y-auto">
-                    <label for="commission" class="block text-sm font-medium mb-2 dark:text-white">Commission</label>
-                    <input type="number" id="commission"
-                        class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                        placeholder="50">
-                </div>
-
-
-                <!-- End Select -->
                 <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
                     <button type="button"
                         class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
