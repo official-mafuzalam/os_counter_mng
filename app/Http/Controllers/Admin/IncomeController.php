@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Income;
 use App\Models\IncomeFrom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IncomeController extends Controller
 {
@@ -20,7 +21,21 @@ class IncomeController extends Controller
 
     public function dataSave(Request $request)
     {
-        dd($request->toArray());
+        $user = Auth::user();
+
+        $income = new Income;
+
+        $income->date = $request['date'];
+        $income->time = $request['time'];
+        $income->name = $request['name'];
+        $income->quantity = $request['quantity'];
+        $income->commission = $request['commission'];
+        $income->user = $user->name;
+        $income->save();
+
+        return redirect()->route('admin.income.index')->with('success', 'Income added successfully.');
+
+        // dd($request->toArray());
     }
 
     public function income_from()

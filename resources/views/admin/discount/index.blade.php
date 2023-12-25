@@ -33,8 +33,8 @@
                                         <div>
                                             <div class="inline-flex gap-x-2">
                                                 <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
-                                                    href="{{ route('admin.income.income_from') }}">
-                                                    View all category
+                                                    href="{{ route('admin.discount.condition') }}">
+                                                    View all condition
                                                 </a>
 
                                                 <button data-hs-overlay="#hs-focus-management-modal"
@@ -103,7 +103,7 @@
 
                                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
 
-                                            @foreach ($incomes as $item)
+                                            {{-- @foreach ($incomes as $item)
                                                 <tr>
                                                     <td class="h-px w-72 whitespace-nowrap">
                                                         <div class="px-6 py-3">
@@ -145,7 +145,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @endforeach --}}
                                         </tbody>
                                     </table>
                                     <!-- End Table -->
@@ -248,9 +248,9 @@
                     <select name="name" id="name" required
                         class="py-2 px-3 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
                         <option selected>Select bus</option>
-                        @foreach ($income_from as $item)
+                        {{-- @foreach ($income_from as $item)
                             <option value="{{ $item->name }}">{{ $item->name }}</option>
-                        @endforeach
+                        @endforeach --}}
                     </select>
                 </div>
 

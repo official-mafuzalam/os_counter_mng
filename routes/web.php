@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PermissionController;
@@ -117,6 +118,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::delete('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('admin.users.permissions.revoke');
 
         Route::get('/check-permissions',[PermissionController::class, 'checkPer']);
+
+
+        Route::get('/discount', [DiscountController::class, 'index'])->name('admin.discount.index');
+
+        Route::get('/discount/condition', [DiscountController::class, 'discount_condition'])->name('admin.discount.condition');
+
+        Route::post('/discount/condition', [DiscountController::class, 'discount_conditionSave'])->name('admin.discount.conditionSave');
 
 
 

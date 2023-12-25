@@ -2,7 +2,7 @@
     <x-slot name="main">
 
         @section('page-title')
-            <title>Income</title>
+            <title>Condition</title>
         @endsection
 
         <div class="w-full pt-5 px-4 sm:px-6 md:px-8">
@@ -23,18 +23,18 @@
                                         class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                                         <div>
                                             <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                                                Income
+                                                Condition
                                             </h2>
                                             <p class="text-sm text-gray-600 dark:text-gray-400">
-                                                Add Income, edit and more.
+                                                Add Condition, edit and more.
                                             </p>
                                         </div>
 
                                         <div>
                                             <div class="inline-flex gap-x-2">
                                                 <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
-                                                    href="{{ route('admin.income.income_from') }}">
-                                                    View all category
+                                                    href="{{ route('admin.discount.condition') }}">
+                                                    View all discount
                                                 </a>
 
                                                 <button data-hs-overlay="#hs-focus-management-modal"
@@ -61,7 +61,7 @@
                                                     <div class="flex items-center gap-x-2 ">
                                                         <span
                                                             class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                            Date / Time
+                                                            ID
                                                         </span>
                                                     </div>
                                                 </th>
@@ -85,7 +85,7 @@
                                                     <div class="flex items-center gap-x-2 ">
                                                         <span
                                                             class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                            Commission
+                                                            Discount
                                                         </span>
                                                     </div>
                                                 </th>
@@ -103,13 +103,13 @@
 
                                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
 
-                                            @foreach ($incomes as $item)
+                                            @foreach ($conditions as $item)
                                                 <tr>
                                                     <td class="h-px w-72 whitespace-nowrap">
                                                         <div class="px-6 py-3">
                                                             <span
                                                                 class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $item->date }}
-                                                                <br>{{ $item->time }} </span>
+                                                                <br>{{ $item->id }} </span>
                                                         </div>
                                                     </td>
                                                     <td class="h-px w-72 whitespace-nowrap">
@@ -127,7 +127,7 @@
                                                     <td class="h-px w-72 whitespace-nowrap">
                                                         <div class="px-6 py-3">
                                                             <span
-                                                                class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $item->commission }}</span>
+                                                                class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $item->discount }}</span>
                                                         </div>
                                                     </td>
                                                     <td class="h-px w-px whitespace-nowrap">
@@ -221,27 +221,8 @@
                     </svg>
                 </button>
             </div>
-            <form action="{{ route('admin.income.dataSave') }}" method="post">
+            <form action="{{ route('admin.discount.conditionSave') }}" method="post">
                 @csrf
-
-                <div class="p-4 overflow-y-auto">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label for="date" class="block text-sm font-medium mb-2 dark:text-white">Date</label>
-                            <input type="date" id="date" name="date" required
-                                class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                placeholder="mm/dd/yyyy" value="<?php echo date('Y-m-d'); ?>">
-                        </div>
-                        <!-- ... -->
-                        <div>
-                            <label for="time" class="block text-sm font-medium mb-2 dark:text-white">Time</label>
-                            <input type="time" id="time" name="time" required
-                                class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                placeholder="hh:mm" value="<?php echo date('H:i'); ?>">
-                        </div>
-                    </div>
-
-                </div>
 
                 <div class="p-4 overflow-y-auto">
                     <label for="name" class="block text-sm font-medium mb-2 dark:text-white">Bus Name</label>
@@ -255,15 +236,17 @@
                 </div>
 
                 <div class="p-4 overflow-y-auto">
-                    <label for="quantity" class="block text-sm font-medium mb-2 dark:text-white">Quantity</label>
+                    <label for="quantity" class="block text-sm font-medium mb-2 dark:text-white">Minimum Seat Every
+                        Month</label>
                     <input type="number" id="quantity" name="quantity" required
                         class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                         placeholder="10">
                 </div>
 
                 <div class="p-4 overflow-y-auto">
-                    <label for="commission" class="block text-sm font-medium mb-2 dark:text-white">Commission</label>
-                    <input type="number" id="commission" name="commission" required
+                    <label for="discount" class="block text-sm font-medium mb-2 dark:text-white">Discount Per
+                        Seat</label>
+                    <input type="number" id="discount" name="discount" required
                         class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                         placeholder="50">
                 </div>
