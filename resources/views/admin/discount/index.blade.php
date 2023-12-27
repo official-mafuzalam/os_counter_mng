@@ -37,7 +37,7 @@
                                                     View all condition
                                                 </a>
 
-                                                <button data-hs-overlay="#hs-focus-management-modal"
+                                                <a href="{{ route('admin.discount.sell_ticket') }}"
                                                     class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
                                                     <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg"
                                                         width="16" height="16" viewBox="0 0 16 16"
@@ -47,7 +47,18 @@
                                                             stroke-linecap="round" />
                                                     </svg>
                                                     Create New
-                                                </button>
+                                                </a>
+                                                {{-- <button data-hs-overlay="#hs-focus-management-modal"
+                                                    class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                                                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg"
+                                                        width="16" height="16" viewBox="0 0 16 16"
+                                                        fill="none">
+                                                        <path d="M2.63452 7.50001L13.6345 7.5M8.13452 13V2"
+                                                            stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="round" />
+                                                    </svg>
+                                                    Create New
+                                                </button> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -214,14 +225,14 @@
                     data-hs-overlay="#hs-focus-management-modal">
                     <span class="sr-only">Close</span>
                     <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <path d="M18 6 6 18" />
                         <path d="m6 6 12 12" />
                     </svg>
                 </button>
             </div>
-            <form action="{{ route('admin.income.dataSave') }}" method="post">
+            <form action="{{ route('admin.discount.TicketHistorySave') }}" method="post">
                 @csrf
 
                 <div class="p-4 overflow-y-auto">
@@ -244,13 +255,14 @@
                 </div>
 
                 <div class="p-4 overflow-y-auto">
-                    <label for="name" class="block text-sm font-medium mb-2 dark:text-white">Bus Name</label>
-                    <select name="name" id="name" required
+                    <label for="company_name" class="block text-sm font-medium mb-2 dark:text-white">Bus Name</label>
+                    <select name="company_name" id="company_name" required onchange="changeValue()"
                         class="py-2 px-3 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
                         <option selected>Select bus</option>
-                        {{-- @foreach ($income_from as $item)
-                            <option value="{{ $item->name }}">{{ $item->name }}</option>
-                        @endforeach --}}
+                        @foreach ($conditions as $item)
+                            <option value="{{ $item->name }}" data-value="{{ $item->quantity }}">{{ $item->name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -285,3 +297,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function changeValue() {
+        var dropdown = document.getElementsByName("company_name")[0];
+        var inputBox = document.getElementById("quantity");
+        inputBox.value = dropdown.options[dropdown.selectedIndex].getAttribute("data-value");
+    }
+</script>
