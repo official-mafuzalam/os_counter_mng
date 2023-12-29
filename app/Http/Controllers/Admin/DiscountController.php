@@ -13,7 +13,7 @@ class DiscountController extends Controller
     public function index()
     {
         $conditions = Discount::all();
-        
+
         return view('admin.discount.index', compact('conditions'));
     }
     public function sell_ticket()
@@ -23,8 +23,14 @@ class DiscountController extends Controller
         return view('admin.discount.sell_ticket', compact('conditions'));
     }
 
-    public function sell_ticketSave(Request $request){
-        
+    public function sell_ticketSave(Request $request)
+    {
+        $sell_tic = new TicketHistory;
+
+        $sell_tic->date = $request['date'];
+
+        // dd($request->toArray());
+
     }
 
     public function TicketHistorySave(Request $request)

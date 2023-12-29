@@ -55,7 +55,7 @@
                         <!-- End Col -->
 
                         <div class="sm:col-span-9">
-                            <select name="company_name" id="company_name" required onchange="changeValue()"
+                            <select name="company_name" id="company_name" required 
                                 class="py-2 px-3 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
                                 <option selected>Select bus</option>
                                 @foreach ($conditions as $item)
@@ -64,6 +64,32 @@
                                     </option>
                                 @endforeach
                             </select>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="sm:col-span-3">
+                            <label for="mobile"
+                                class="block text-sm font-medium mb-2 dark:text-white">Mobile</label>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="sm:col-span-9">
+                            <input type="text" id="mobile" name="mobile" required
+                                class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                placeholder="01751944774" maxlength="11">
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="sm:col-span-3">
+                            <label for="name"
+                                class="block text-sm font-medium mb-2 dark:text-white">Name</label>
+                        </div>
+                        <!-- End Col -->
+
+                        <div class="sm:col-span-9">
+                            <input type="text" id="name" name="name" required
+                                class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                placeholder="Mr. ">
                         </div>
                         <!-- End Col -->
 
@@ -111,6 +137,7 @@
 </x-admin-layout>
 
 <script>
+    // onchange="changeValue()"
     function changeValue() {
         var dropdown = document.getElementsByName("company_name")[0];
         var inputBox = document.getElementById("quantity");
