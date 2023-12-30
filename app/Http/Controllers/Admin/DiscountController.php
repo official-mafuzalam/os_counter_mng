@@ -10,11 +10,23 @@ use Illuminate\Http\Request;
 
 class DiscountController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $mobile = isset($request['mobile']) ? $request['mobile'] : "";
+
         $conditions = Discount::all();
 
-        $sells = TicketHistory::all();
+
+
+        if ($mobile != "") {
+
+            $sells = TicketHistory::where('mobile', $mobile)->paginate(15);
+
+        } else {
+
+            $sells = TicketHistory::paginate(15);
+
+        }
 
         return view('admin.discount.index', compact('conditions', 'sells'));
     }

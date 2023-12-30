@@ -64,18 +64,20 @@
                                         </div>
                                     </div>
                                     <!-- End Header -->
-                                    <div class="inline-flex gap-x-2 p-2 md:flex md:justify-between md:items-center">
-                                        <input type="text"
-                                            class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                            placeholder="01751944774" maxlength="11">
-                                        <button type="button"
-                                            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                                            Search
-                                        </button>
-                                    </div>
+                                    <form action="" method="get">
+                                        <div class="inline-flex gap-x-2 p-2 md:flex md:justify-between md:items-center">
+                                            <input type="text" name="mobile"
+                                                class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                                placeholder="01751944774" maxlength="11">
+                                            <button type="submit"
+                                                class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                                Search
+                                            </button>
+                                        </div>
+                                    </form>
                                     <!-- Table -->
                                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                        <thead class="bg-gray-50 dark:bg-slate-800">
+                                        <thead class="bg-gray-200 dark:bg-slate-800">
                                             <tr>
                                                 <th scope="col" class="pl-6 lg:pl-3 xl:pl-6 pr-6 py-3 text-left">
                                                     <div class="flex items-center gap-x-2 ">
@@ -89,7 +91,15 @@
                                                     <div class="flex items-center gap-x-2 ">
                                                         <span
                                                             class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                            Name
+                                                            Passenger
+                                                        </span>
+                                                    </div>
+                                                </th>
+                                                <th scope="col" class="pl-6 lg:pl-3 xl:pl-6 pr-6 py-3 text-left">
+                                                    <div class="flex items-center gap-x-2 ">
+                                                        <span
+                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                                            Company
                                                         </span>
                                                     </div>
                                                 </th>
@@ -98,14 +108,6 @@
                                                         <span
                                                             class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                                             Qunatity
-                                                        </span>
-                                                    </div>
-                                                </th>
-                                                <th scope="col" class="pl-6 lg:pl-3 xl:pl-6 pr-6 py-3 text-left">
-                                                    <div class="flex items-center gap-x-2 ">
-                                                        <span
-                                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                            Commission
                                                         </span>
                                                     </div>
                                                 </th>
@@ -177,34 +179,17 @@
                                     <div
                                         class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
                                         <div>
-                                            {{-- <p class="text-sm text-gray-600 dark:text-gray-400">
-                                        <span class="font-semibold text-gray-800 dark:text-gray-200">6</span> results
-                                    </p> --}}
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                                <span class="font-semibold text-gray-800 dark:text-gray-200">
+                                                    {{ $sells->count() }}</span> result
+                                            </p>
                                         </div>
 
                                         <div>
                                             <div class="inline-flex gap-x-2">
-                                                <button type="button"
-                                                    class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
-                                                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg"
-                                                        width="16" height="16" fill="currentColor"
-                                                        viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd"
-                                                            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-                                                    </svg>
-                                                    Prev
-                                                </button>
-
-                                                <button type="button"
-                                                    class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
-                                                    Next
-                                                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg"
-                                                        width="16" height="16" fill="currentColor"
-                                                        viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd"
-                                                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                                                    </svg>
-                                                </button>
+                                                <div class="inline-flex gap-x-2">
+                                                    {{ $sells->links() }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -236,8 +221,8 @@
                     class="flex justify-center items-center w-7 h-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                     data-hs-overlay="#hs-focus-management-modal">
                     <span class="sr-only">Close</span>
-                    <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24"
-                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 6 6 18" />
                         <path d="m6 6 12 12" />
