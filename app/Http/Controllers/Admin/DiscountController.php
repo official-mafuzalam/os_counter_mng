@@ -14,7 +14,9 @@ class DiscountController extends Controller
     {
         $conditions = Discount::all();
 
-        return view('admin.discount.index', compact('conditions'));
+        $sells = TicketHistory::all();
+
+        return view('admin.discount.index', compact('conditions', 'sells'));
     }
     public function sell_ticket()
     {
@@ -28,6 +30,15 @@ class DiscountController extends Controller
         $sell_tic = new TicketHistory;
 
         $sell_tic->date = $request['date'];
+        $sell_tic->time = $request['time'];
+        $sell_tic->company_name = $request['company_name'];
+        $sell_tic->mobile = $request['mobile'];
+        $sell_tic->name = $request['name'];
+        $sell_tic->quantity = $request['quantity'];
+        $sell_tic->t_commission = $request['commission'];
+        $sell_tic->save();
+
+        return redirect()->route('admin.discount.index')->with('success', 'Ticket history added successfully.');
 
         // dd($request->toArray());
 

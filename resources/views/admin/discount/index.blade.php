@@ -23,15 +23,16 @@
                                         class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                                         <div>
                                             <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                                                Income
+                                                Sold Tickets
                                             </h2>
                                             <p class="text-sm text-gray-600 dark:text-gray-400">
-                                                Add Income, edit and more.
+                                                Sold Tickets, edit and more.
                                             </p>
                                         </div>
 
                                         <div>
                                             <div class="inline-flex gap-x-2">
+
                                                 <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
                                                     href="{{ route('admin.discount.condition') }}">
                                                     View all condition
@@ -63,7 +64,15 @@
                                         </div>
                                     </div>
                                     <!-- End Header -->
-
+                                    <div class="inline-flex gap-x-2 p-2 md:flex md:justify-between md:items-center">
+                                        <input type="text"
+                                            class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                            placeholder="01751944774" maxlength="11">
+                                        <button type="button"
+                                            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                            Search
+                                        </button>
+                                    </div>
                                     <!-- Table -->
                                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                         <thead class="bg-gray-50 dark:bg-slate-800">
@@ -114,7 +123,7 @@
 
                                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
 
-                                            {{-- @foreach ($incomes as $item)
+                                            @foreach ($sells as $item)
                                                 <tr>
                                                     <td class="h-px w-72 whitespace-nowrap">
                                                         <div class="px-6 py-3">
@@ -126,19 +135,22 @@
                                                     <td class="h-px w-72 whitespace-nowrap">
                                                         <div class="px-6 py-3">
                                                             <span
-                                                                class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $item->name }}</span>
+                                                                class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $item->mobile }}
+                                                                <br>{{ $item->name }}</span>
                                                         </div>
                                                     </td>
                                                     <td class="h-px w-72 whitespace-nowrap">
                                                         <div class="px-6 py-3">
                                                             <span
-                                                                class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $item->quantity }}</span>
+                                                                class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $item->company_name }}
+                                                            </span>
                                                         </div>
                                                     </td>
                                                     <td class="h-px w-72 whitespace-nowrap">
                                                         <div class="px-6 py-3">
                                                             <span
-                                                                class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $item->commission }}</span>
+                                                                class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ $item->quantity }}
+                                                                <br> {{ $item->t_commission }}</span>
                                                         </div>
                                                     </td>
                                                     <td class="h-px w-px whitespace-nowrap">
@@ -156,7 +168,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            @endforeach --}}
+                                            @endforeach
                                         </tbody>
                                     </table>
                                     <!-- End Table -->
@@ -224,9 +236,9 @@
                     class="flex justify-center items-center w-7 h-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                     data-hs-overlay="#hs-focus-management-modal">
                     <span class="sr-only">Close</span>
-                    <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
+                    <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 6 6 18" />
                         <path d="m6 6 12 12" />
                     </svg>
@@ -260,7 +272,8 @@
                         class="py-2 px-3 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
                         <option selected>Select bus</option>
                         @foreach ($conditions as $item)
-                            <option value="{{ $item->name }}" data-value="{{ $item->quantity }}">{{ $item->name }}
+                            <option value="{{ $item->name }}" data-value="{{ $item->quantity }}">
+                                {{ $item->name }}
                             </option>
                         @endforeach
                     </select>
