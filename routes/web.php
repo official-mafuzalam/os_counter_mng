@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PermissionController;
@@ -124,9 +125,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
         Route::get('/discount/sell_ticket', [DiscountController::class, 'sell_ticket'])->name('admin.discount.sell_ticket');
 
-        Route::post('/discount/sell_ticket', [DiscountController::class, 'sell_ticketSave'])->name('admin.discount.sell_ticketSave');
+        Route::get('/discount/sell_ticket/get_name/{mobile}', [DiscountController::class, 'get_name'])->name('get_name');
 
-        Route::post('/discount', [DiscountController::class, 'TicketHistorySave'])->name('admin.discount.TicketHistorySave');
+        Route::post('/discount/sell_ticket', [DiscountController::class, 'sell_ticketSave'])->name('admin.discount.sell_ticketSave');
 
         Route::get('/discount/condition', [DiscountController::class, 'discount_condition'])->name('admin.discount.condition');
 
@@ -143,6 +144,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/income_from', [IncomeController::class,'income_from'])->name('admin.income.income_from');
         
         Route::post('/income_from', [IncomeController::class,'income_fromSave'])->name('admin.income.income_fromSave');
+
+
+        Route::get('/expense', [ExpenseController::class,'index'])->name('admin.expense.index');
+
+        Route::get('/expense_add', [ExpenseController::class,'expense_add'])->name('admin.expense.expense_add');
+
+        Route::get('/expense/category', [ExpenseController::class,'expense_category'])->name('admin.expense.category');
+
+        Route::post('/expense/category', [ExpenseController::class,'expense_categorySave'])->name('admin.expense.categorySave');
 
 
 

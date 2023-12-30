@@ -12,7 +12,7 @@ class IncomeController extends Controller
 {
     public function index()
     {
-        $incomes = Income::all();
+        $incomes = Income::orderBy('created_at', 'desc')->get();
 
         $income_from = IncomeFrom::all();
 

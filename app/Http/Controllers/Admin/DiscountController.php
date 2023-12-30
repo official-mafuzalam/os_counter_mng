@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Discount;
+use App\Models\Income;
 use App\Models\IncomeFrom;
 use App\Models\TicketHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class DiscountController extends Controller
 {
@@ -14,21 +17,28 @@ class DiscountController extends Controller
     {
         $mobile = isset($request['mobile']) ? $request['mobile'] : "";
 
-        $conditions = Discount::all();
+        $date = isset($request['date']) ? $request['date'] : "";
 
-
-
-        if ($mobile != "") {
-
-            $sells = TicketHistory::where('mobile', $mobile)->paginate(15);
-
+        if ($date != "" && $mobile != "") {
+            $sells = TicketHistory::where('date', $date)
+                ->where('mobile', $mobile)
+                ->orderBy('date', 'desc')
+                ->paginate(15);
+        } elseif ($date != "") {
+            $sells = TicketHistory::where('date', $date)
+                ->orderBy('date', 'desc')
+                ->paginate(15);
+        } elseif ($mobile != "") {
+            $sells = TicketHistory::where('mobile', $mobile)
+                ->orderBy('date', 'desc')
+                ->paginate(15);
         } else {
-
-            $sells = TicketHistory::paginate(15);
-
+            $sells = TicketHistory::orderBy('date', 'desc')
+                ->paginate(15);
         }
 
-        return view('admin.discount.index', compact('conditions', 'sells'));
+
+        return view('admin.discount.index', compact('sells'));
     }
     public function sell_ticket()
     {
@@ -36,6 +46,26 @@ class DiscountController extends Controller
 
         return view('admin.discount.sell_ticket', compact('conditions'));
     }
+
+    public function get_name($mobile)
+    {
+        try {
+            // Retrieve the name from the database based on the mobile number
+            // Replace 'YourModel' with the actual model name you are using
+            $name = TicketHistory::where('mobile', $mobile)->value('name');
+
+            return response()->json($name);
+        } catch (\Exception $e) {
+            // Log the exception for debugging purposes
+            Log::error($e);
+
+            // Return an error response
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
+    }
+
+
+
 
     public function sell_ticketSave(Request $request)
     {
@@ -50,26 +80,21 @@ class DiscountController extends Controller
         $sell_tic->t_commission = $request['commission'];
         $sell_tic->save();
 
+        $user = Auth::user();
+
+        $income = new Income;
+
+        $income->date = $request['date'];
+        $income->time = $request['time'];
+        $income->name = $request['company_name'];
+        $income->quantity = $request['quantity'];
+        $income->commission = $request['commission'];
+        $income->user = $user->name;
+        $income->save();
+
         return redirect()->route('admin.discount.index')->with('success', 'Ticket history added successfully.');
 
         // dd($request->toArray());
-
-    }
-
-    public function TicketHistorySave(Request $request)
-    {
-        $tic_his = new TicketHistory;
-
-        $tic_his->date = $request['date'];
-        $tic_his->time = $request['time'];
-        $tic_his->company_name = $request['company_name'];
-        $tic_his->name = $request['name'];
-        $tic_his->mobile = $request['mobile'];
-        $tic_his->quantity = $request['quantity'];
-        $tic_his->t_commission = $request['t_commission'];
-        $tic_his->save();
-
-        return redirect()->route('admin.discount.index')->with('success', 'Ticket history added successfully.');
 
     }
 
