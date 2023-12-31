@@ -153,7 +153,7 @@
                                                     <td class="h-px w-px whitespace-nowrap">
                                                         <div class="px-6 py-1.5">
                                                             <a class="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                                                                href="{{ route('admin.role.edit', ['id' => $item->id]) }}">
+                                                                href="#">
                                                                 Edit
                                                             </a>
                                                         </div>

@@ -133,6 +133,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
         Route::post('/discount/condition', [DiscountController::class, 'discount_conditionSave'])->name('admin.discount.conditionSave');
 
+        Route::get('/discount/condition_edit/{id}', [DiscountController::class, 'condition_edit'])->name('admin.discount.condition_edit');
+
 
 
         Route::get('/income', [IncomeController::class,'index'])->name('admin.income.index');

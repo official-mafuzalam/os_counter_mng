@@ -95,7 +95,7 @@
                                                     <td class="h-px w-px whitespace-nowrap">
                                                         <div class="px-6 py-1.5">
                                                             <a class="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                                                                href="{{ route('admin.role.edit', ['id' => $role->id]) }}">
+                                                                href="#">
                                                                 Edit
                                                             </a>
                                                         </div>
@@ -169,7 +169,7 @@
             class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
             <div class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
                 <h3 class="font-bold text-gray-800 dark:text-white">
-                    Income From
+                    Revenue Category
                 </h3>
                 <button type="button"
                     class="flex justify-center items-center w-7 h-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"

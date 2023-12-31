@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Discount;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,9 +12,9 @@ class HomeController extends Controller
 
     public function index()
     {
-        $userRoles = auth()->user()->getRoleNames();
+        $discounts = Discount::all();
 
-        return view('admin.index');
+        return view('admin.index', compact('discounts'));
 
 
 

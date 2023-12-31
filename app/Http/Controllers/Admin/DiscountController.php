@@ -45,7 +45,7 @@ class DiscountController extends Controller
     }
     public function sell_ticket()
     {
-        $conditions = Discount::all();
+        $conditions = IncomeFrom::all();
 
         return view('admin.discount.sell_ticket', compact('conditions'));
     }
@@ -120,6 +120,19 @@ class DiscountController extends Controller
         $dis_con->save();
 
         return redirect()->route('admin.discount.condition')->with('success', 'Discount condition added successfully.');
+    }
+
+    public function condition_edit($id)
+    {
+        // Retrieve item data by ID
+        $item = Discount::find($id);
+
+        if (!$item) {
+            return to_route('admin.discount.condition')->with('success-trash', 'item not found.');
+        } else {
+            return view('admin.discount.condition_edit', compact('item'));
+        }
+
     }
 
 
