@@ -32,28 +32,13 @@ Route::get('/session', function () {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return to_route('admin.index');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-Route::middleware(['role:editor'])->group(function () {
-    Route::get('editor/dashboard', 'EditorController@dashboard')->name('editor.dashboard');
-    // Other editor routes
-});
-
-Route::middleware(['role:user'])->group(function () {
-    Route::get('user/dashboard', 'UserController@dashboard')->name('user.dashboard');
-    // Other user routes
-});
 
 
 
@@ -66,6 +51,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::prefix('admin')->group(function () {
 
         Route::get('/', [HomeController::class, 'index'])->name('admin.index');
+
+        // Profile
+
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
         // Roles
 
@@ -107,18 +100,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/users', [UserController::class, 'user'])->name('admin.user');
 
         Route::get('/users/{user}', [UserController::class, 'show'])->name('admin.users.show');
-        
+
         Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
-        
+
         Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('admin.users.roles');
-       
+
         Route::delete('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])->name('admin.users.roles.remove');
-        
+
         Route::post('/users/{user}/permissions', [UserController::class, 'givePermission'])->name('admin.users.permissions');
-        
+
         Route::delete('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('admin.users.permissions.revoke');
 
-        Route::get('/check-permissions',[PermissionController::class, 'checkPer']);
+        Route::get('/check-permissions', [PermissionController::class, 'checkPer']);
 
 
         Route::get('/discount', [DiscountController::class, 'index'])->name('admin.discount.index');
@@ -137,26 +130,26 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 
-        Route::get('/income', [IncomeController::class,'index'])->name('admin.income.index');
+        Route::get('/income', [IncomeController::class, 'index'])->name('admin.income.index');
 
-        Route::post('/income', [IncomeController::class,'dataSave'])->name('admin.income.dataSave');
-        
-
-
-        Route::get('/income_from', [IncomeController::class,'income_from'])->name('admin.income.income_from');
-        
-        Route::post('/income_from', [IncomeController::class,'income_fromSave'])->name('admin.income.income_fromSave');
+        Route::post('/income', [IncomeController::class, 'dataSave'])->name('admin.income.dataSave');
 
 
-        Route::get('/expense', [ExpenseController::class,'index'])->name('admin.expense.index');
 
-        Route::get('/expense_add', [ExpenseController::class,'expense_add'])->name('admin.expense.expense_add');
+        Route::get('/income_from', [IncomeController::class, 'income_from'])->name('admin.income.income_from');
 
-        Route::post('/expense_add', [ExpenseController::class,'expense_addSave'])->name('admin.expense.expense_addSave');
+        Route::post('/income_from', [IncomeController::class, 'income_fromSave'])->name('admin.income.income_fromSave');
 
-        Route::get('/expense/category', [ExpenseController::class,'expense_category'])->name('admin.expense.category');
 
-        Route::post('/expense/category', [ExpenseController::class,'expense_categorySave'])->name('admin.expense.categorySave');
+        Route::get('/expense', [ExpenseController::class, 'index'])->name('admin.expense.index');
+
+        Route::get('/expense_add', [ExpenseController::class, 'expense_add'])->name('admin.expense.expense_add');
+
+        Route::post('/expense_add', [ExpenseController::class, 'expense_addSave'])->name('admin.expense.expense_addSave');
+
+        Route::get('/expense/category', [ExpenseController::class, 'expense_category'])->name('admin.expense.category');
+
+        Route::post('/expense/category', [ExpenseController::class, 'expense_categorySave'])->name('admin.expense.categorySave');
 
 
 

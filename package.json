@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@preline/select": "^2.0.1",
+        "apexcharts": "^3.45.1",
         "preline": "^1.9.0"
     }
 }

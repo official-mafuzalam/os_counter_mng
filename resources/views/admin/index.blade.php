@@ -4,8 +4,11 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <main class="p-4 h-auto pt-20">
+                    <main class="p-4 h-auto">
                         <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 mb-4">
+                            <h2 class="text-2xl font-bold text-red-600 dark:text-gray-200 text-center">
+                                Condition for get Discount
+                            </h2>
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                 <thead class="bg-gray-50 dark:bg-slate-800">
                                     <tr>
@@ -13,7 +16,7 @@
                                             <div class="flex items-center gap-x-2 ">
                                                 <span
                                                     class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                    ID
+                                                    Serial
                                                 </span>
                                             </div>
                                         </th>
@@ -37,7 +40,7 @@
                                             <div class="flex items-center gap-x-2 ">
                                                 <span
                                                     class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                    Discount
+                                                    Discount (TK)
                                                 </span>
                                             </div>
                                         </th>
@@ -78,14 +81,38 @@
                                 </tbody>
                             </table>
                         </div>
+
                         <div class="grid grid-cols-2 gap-4 mb-4">
                             <div
                                 class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72">
-                                7
-                            </div>
+                                7</div>
                             <div
                                 class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72">
                                 7</div>
+                        </div>
+
+                        <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 mb-4">
+                            {!! $sellsAmount->container() !!}
+
+                            <script src="{{ $sellsAmount->cdn() }}"></script>
+
+                            {{ $sellsAmount->script() }}
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600">
+                                {!! $passengerAmount->container() !!}
+
+                                <script src="{{ $passengerAmount->cdn() }}"></script>
+
+                                {{ $passengerAmount->script() }}
+                            </div>
+                            <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600">
+                                {!! $expenseAmount->container() !!}
+
+                                <script src="{{ $expenseAmount->cdn() }}"></script>
+
+                                {{ $expenseAmount->script() }}
+                            </div>
                             <div
                                 class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72">
                                 7</div>
