@@ -19,22 +19,25 @@ class DiscountController extends Controller
 
         $date = isset($request['date']) ? $request['date'] : "";
 
+        $today = now()->format('Y-m-d');
+
         if ($date != "" && $mobile != "") {
             $sells = TicketHistory::where('date', $date)
                 ->where('mobile', $mobile)
                 ->orderBy('date', 'desc')
-                ->paginate(15);
+                ->get();
         } elseif ($date != "") {
             $sells = TicketHistory::where('date', $date)
                 ->orderBy('date', 'desc')
-                ->paginate(15);
+                ->get();
         } elseif ($mobile != "") {
             $sells = TicketHistory::where('mobile', $mobile)
                 ->orderBy('date', 'desc')
-                ->paginate(15);
+                ->get();
         } else {
-            $sells = TicketHistory::orderBy('date', 'desc')
-                ->paginate(15);
+            $sells = TicketHistory::where('date', $today)
+                ->orderBy('date', 'desc')
+                ->get();
         }
 
 

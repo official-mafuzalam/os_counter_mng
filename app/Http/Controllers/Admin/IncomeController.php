@@ -10,13 +10,30 @@ use Illuminate\Support\Facades\Auth;
 
 class IncomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $incomes = Income::orderBy('created_at', 'desc')->get();
+        $date = isset($request['date']) ? $request['date'] : "";
+
+        $today = now()->format('Y-m-d');
+
+        if ($date != "") {
+            $incomes = Income::where('date', $date)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+        } else {
+            $incomes = Income::where('date', $today)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        $totalAmount = $incomes->sum('commission');
+
+        $totalPassenger = $incomes->sum('quantity');
 
         $income_from = IncomeFrom::all();
 
-        return view('admin.income.index', compact('incomes', 'income_from'));
+        return view('admin.income.index', compact('incomes', 'income_from', 'totalAmount','totalPassenger'));
     }
 
     public function dataSave(Request $request)

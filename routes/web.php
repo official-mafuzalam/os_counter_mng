@@ -150,6 +150,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
         Route::get('/expense_add', [ExpenseController::class,'expense_add'])->name('admin.expense.expense_add');
 
+        Route::post('/expense_add', [ExpenseController::class,'expense_addSave'])->name('admin.expense.expense_addSave');
+
         Route::get('/expense/category', [ExpenseController::class,'expense_category'])->name('admin.expense.category');
 
         Route::post('/expense/category', [ExpenseController::class,'expense_categorySave'])->name('admin.expense.categorySave');

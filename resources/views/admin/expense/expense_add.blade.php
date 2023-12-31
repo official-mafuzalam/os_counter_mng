@@ -2,7 +2,7 @@
     <x-slot name="main">
 
         @section('page-title')
-            <title>Sell TIcket</title>
+            <title>Expense Add</title>
         @endsection
 
         <!-- Card Section -->
@@ -11,15 +11,15 @@
             <div class="bg-slate-300 rounded-xl shadow p-4 mb-10 sm:p-7 dark:bg-slate-800">
                 <div class="mb-8">
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200 text-center">
-                        Sell TIcket
+                        Expense Add
                     </h2>
                     <label class="inline-block text-sm font-medium dark:text-gray-400">
-                        Sell TIcket info
+                        Expense add info
                     </label>
 
                 </div>
 
-                <form action="{{ route('admin.discount.sell_ticketSave') }}" method="POST">
+                <form action="{{ route('admin.expense.expense_addSave') }}" method="POST">
                     @csrf
                     <!-- Grid -->
                     <div class="grid sm:grid-cols-12 gap-2 sm:gap-6">
@@ -49,17 +49,17 @@
                         <!-- End Col -->
 
                         <div class="sm:col-span-3">
-                            <label for="company_name" class="block text-sm font-medium mb-2 dark:text-white">Bus
-                                Name</label>
+                            <label for="name"
+                                class="block text-sm font-medium mb-2 dark:text-white">Category</label>
                         </div>
                         <!-- End Col -->
 
                         <div class="sm:col-span-9">
-                            <select name="company_name" id="company_name" required
+                            <select name="name" id="name" required
                                 class="py-2 px-3 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
                                 <option selected>Select bus</option>
                                 @foreach ($exp_cat as $item)
-                                    <option value="{{ $item->name }}" data-value="{{ $item->quantity }}">
+                                    <option value="{{ $item->name }}">
                                         {{ $item->name }}
                                     </option>
                                 @endforeach
@@ -68,50 +68,12 @@
                         <!-- End Col -->
 
                         <div class="sm:col-span-3">
-                            <label for="mobile" class="block text-sm font-medium mb-2 dark:text-white">Mobile</label>
+                            <label for="amount" class="block text-sm font-medium mb-2 dark:text-white">Amaount</label>
                         </div>
                         <!-- End Col -->
 
                         <div class="sm:col-span-9">
-                            <input type="text" id="mobile" name="mobile" required onkeyup="getName(this.value)"
-                                class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                placeholder="01751944774" maxlength="11">
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-3">
-                            <label for="name" class="block text-sm font-medium mb-2 dark:text-white">Name</label>
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-9">
-                            <input type="text" id="name" name="name" required
-                                class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                placeholder="Mr. ">
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-3">
-                            <label for="quantity"
-                                class="block text-sm font-medium mb-2 dark:text-white">Quantity</label>
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-9">
-                            <input type="number" id="quantity" name="quantity" required
-                                class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                placeholder="10">
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-3">
-                            <label for="commission"
-                                class="block text-sm font-medium mb-2 dark:text-white">CC</label>
-                        </div>
-                        <!-- End Col -->
-
-                        <div class="sm:col-span-9">
-                            <input type="number" id="commission" name="commission" required
+                            <input type="number" id="amount" name="amount" required
                                 class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                                 placeholder="50">
                         </div>
@@ -133,33 +95,3 @@
 
     </x-slot>
 </x-admin-layout>
-
-<script>
-    // onchange="changeValue()"
-    function changeValue() {
-        var dropdown = document.getElementsByName("company_name")[0];
-        var inputBox = document.getElementById("quantity");
-        inputBox.value = dropdown.options[dropdown.selectedIndex].getAttribute("data-value");
-    }
-
-    function getName(mobile) {
-        // Send an AJAX request to the server
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // Update the name input field with the retrieved name without double quotes
-                var name = this.responseText.replace(/^"(.*)"$/, '$1');
-                document.getElementById("name").value = name;
-            }
-        };
-
-        // Use Laravel route() function to generate the URL
-        var url = "{{ route('get_name', ['mobile' => 'temp']) }}"; // 'temp' is a placeholder
-
-        // Replace the placeholder with the actual mobile number
-        url = url.replace('temp', encodeURIComponent(mobile));
-
-        xhttp.open("GET", url, true);
-        xhttp.send();
-    }
-</script>
