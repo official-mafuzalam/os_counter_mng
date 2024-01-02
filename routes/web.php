@@ -122,6 +122,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
         Route::post('/discount/sell_ticket', [DiscountController::class, 'sell_ticketSave'])->name('admin.discount.sell_ticketSave');
 
+        Route::get('/discount/sell_ticket/{id}/{status}', [DiscountController::class, 'sell_ticketStatus'])->name('admin.discount.sell_ticketStatus');
+
         Route::get('/discount/condition', [DiscountController::class, 'discount_condition'])->name('admin.discount.condition');
 
         Route::post('/discount/condition', [DiscountController::class, 'discount_conditionSave'])->name('admin.discount.conditionSave');

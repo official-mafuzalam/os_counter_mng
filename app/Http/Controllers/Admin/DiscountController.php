@@ -83,21 +83,50 @@ class DiscountController extends Controller
         $sell_tic->t_commission = $request['commission'];
         $sell_tic->save();
 
-        $user = Auth::user();
-
-        $income = new Income;
-
-        $income->date = $request['date'];
-        $income->time = $request['time'];
-        $income->name = $request['company_name'];
-        $income->quantity = $request['quantity'];
-        $income->commission = $request['commission'];
-        $income->user = $user->name;
-        $income->save();
-
-        return redirect()->route('admin.discount.index')->with('success', 'Ticket history added successfully.');
+        return redirect()->route('admin.discount.index')->with('success', 'Ticket sold successfully.');
 
         // dd($request->toArray());
+
+    }
+
+    public function sell_ticketStatus($id, $status)
+    {
+        $history = TicketHistory::find($id);
+
+        if ($history) {
+            if ($status == 1) {
+
+                $history->status = 1;
+                $history->save();
+
+                $user = Auth::user();
+
+                $income = new Income;
+
+                $income->date = $history->date;
+                $income->time = $history->time;
+                $income->name = $history->company_name;
+                $income->quantity = $history->quantity;
+                $income->commission = $history->t_commission;
+                $income->user = $user->name;
+                $income->save();
+
+                return redirect()->route('admin.discount.index')->with('success', 'Ticket delivery successfully.');
+            } else {
+
+                $history->status = 2;
+                $history->save();
+
+                return redirect()->route('admin.discount.index')->with('success-delete', 'Ticket cancel successfully.');
+            }
+
+        } else {
+            return redirect()->route('admin.discount.index')->with('success-trash', 'Item not found.');
+        }
+
+
+        // dd($history->toArray());
+
 
     }
 

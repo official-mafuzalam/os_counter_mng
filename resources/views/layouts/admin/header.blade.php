@@ -15,7 +15,7 @@
     <script src="{{ @asset('vendor/larapex-charts/apexcharts.js') }}"></script>
 
     <!-- Scripts -->
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="preload" as="style" href="{{ asset('build/assets/app-527e8958.css') }}" />
     <link rel="stylesheet" href="{{ asset('build/assets/app-527e8958.css') }}" />
