@@ -14,13 +14,20 @@ class IncomeController extends Controller
     {
         $date = isset($request['date']) ? $request['date'] : "";
 
+        $name = isset($request['name']) ? $request['name'] : "";
+
         $today = now()->format('Y-m-d');
 
-        if ($date != "") {
+        if ($date != "" && $name != "") {
             $incomes = Income::where('date', $date)
+                ->where('name', $name)
                 ->orderBy('created_at', 'desc')
                 ->get();
 
+        } elseif ($date != "") {
+            $incomes = Income::where('date', $date)
+                ->orderBy('created_at', 'desc')
+                ->get();
         } else {
             $incomes = Income::where('date', $today)
                 ->orderBy('created_at', 'desc')
@@ -33,7 +40,7 @@ class IncomeController extends Controller
 
         $income_from = IncomeFrom::all();
 
-        return view('admin.income.index', compact('incomes', 'income_from', 'totalAmount','totalPassenger'));
+        return view('admin.income.index', compact('incomes', 'income_from', 'totalAmount', 'totalPassenger'));
     }
 
     public function dataSave(Request $request)
@@ -53,6 +60,33 @@ class IncomeController extends Controller
         return redirect()->route('admin.income.index')->with('success', 'Income added successfully.');
 
         // dd($request->toArray());
+    }
+
+    public function income_edit($id)
+    {
+        $income = Income::find($id);
+
+        $income_from = IncomeFrom::all();
+
+        return view('admin.income.edit', compact('income', 'income_from', 'id'));
+    }
+
+    public function income_update(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        $income = Income::find($id);
+
+        $income->date = $request['date'];
+        $income->time = $request['time'];
+        $income->name = $request['name'];
+        $income->quantity = $request['quantity'];
+        $income->commission = $request['commission'];
+        $income->user = $user->name;
+        $income->save();
+
+        return redirect()->route('admin.income.index')->with('success', 'Income update successfully.');
+
     }
 
     public function income_from()

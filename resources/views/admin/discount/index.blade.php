@@ -223,7 +223,7 @@
                                                                     aria-labelledby="hs-table-dropdown-2">
                                                                     <div class="py-2 first:pt-0 last:pb-0">
                                                                         <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                                                                            href="#">
+                                                                            href="{{ route('admin.discount.sell_ticket_edit', ['id' => $item->id]) }}">
                                                                             Edit
                                                                         </a>
                                                                     </div>

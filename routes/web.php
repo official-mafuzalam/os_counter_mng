@@ -118,11 +118,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
         Route::get('/discount/sell_ticket', [DiscountController::class, 'sell_ticket'])->name('admin.discount.sell_ticket');
 
-        Route::get('/discount/sell_ticket/get_name/{mobile}', [DiscountController::class, 'get_name'])->name('get_name');
-
         Route::post('/discount/sell_ticket', [DiscountController::class, 'sell_ticketSave'])->name('admin.discount.sell_ticketSave');
 
+        Route::get('/discount/sell_ticket/get_name/{mobile}', [DiscountController::class, 'get_name'])->name('get_name');
+
         Route::get('/discount/sell_ticket/{id}/{status}', [DiscountController::class, 'sell_ticketStatus'])->name('admin.discount.sell_ticketStatus');
+
+        Route::get('/discount/sell_ticket_edit/{id}', [DiscountController::class, 'sell_ticket_edit'])->name('admin.discount.sell_ticket_edit');
+
+        Route::post('/discount/sell_ticket_update/{id}', [DiscountController::class, 'sell_ticket_update'])->name('admin.discount.sell_ticket_update');
+
 
         Route::get('/discount/condition', [DiscountController::class, 'discount_condition'])->name('admin.discount.condition');
 
@@ -130,11 +135,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
         Route::get('/discount/condition_edit/{id}', [DiscountController::class, 'condition_edit'])->name('admin.discount.condition_edit');
 
+        Route::post('/discount/condition_update/{id}', [DiscountController::class, 'condition_update'])->name('admin.discount.condition_update');
+
 
 
         Route::get('/income', [IncomeController::class, 'index'])->name('admin.income.index');
 
         Route::post('/income', [IncomeController::class, 'dataSave'])->name('admin.income.dataSave');
+
+        Route::get('/income_edit/{id}', [IncomeController::class, 'income_edit'])->name('admin.income.edit');
+
+        Route::post('/income_update/{id}', [IncomeController::class, 'income_update'])->name('admin.income.update');
 
 
 

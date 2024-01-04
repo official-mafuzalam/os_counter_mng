@@ -45,9 +45,11 @@ class DiscountController extends Controller
     }
     public function sell_ticket()
     {
-        $conditions = IncomeFrom::all();
+        $category = IncomeFrom::all();
 
-        return view('admin.discount.sell_ticket', compact('conditions'));
+        $history = new TicketHistory;
+
+        return view('admin.discount.sell_ticket', compact('history', 'category'));
     }
 
     public function get_name($mobile)
@@ -57,7 +59,10 @@ class DiscountController extends Controller
             // Replace 'YourModel' with the actual model name you are using
             $name = TicketHistory::where('mobile', $mobile)->value('name');
 
-            return response()->json($name);
+            $last_tic = TicketHistory::where('mobile', $mobile)->value('date');
+
+            return response()->json(['name' => $name, 'last_tic' => $last_tic]);
+
         } catch (\Exception $e) {
             // Log the exception for debugging purposes
             Log::error($e);
@@ -124,9 +129,34 @@ class DiscountController extends Controller
             return redirect()->route('admin.discount.index')->with('success-trash', 'Item not found.');
         }
 
-
         // dd($history->toArray());
 
+    }
+
+    public function sell_ticket_edit($id)
+    {
+        $history = TicketHistory::find($id);
+
+        $category = IncomeFrom::all();
+
+        return view('admin.discount.sell_ticket_edit', compact('history', 'category', 'id'));
+
+    }
+
+    public function sell_ticket_update(Request $request, $id)
+    {
+        $sell_tic = TicketHistory::find($id);
+
+        $sell_tic->date = $request['date'];
+        $sell_tic->time = $request['time'];
+        $sell_tic->company_name = $request['company_name'];
+        $sell_tic->mobile = $request['mobile'];
+        $sell_tic->name = $request['name'];
+        $sell_tic->quantity = $request['quantity'];
+        $sell_tic->t_commission = $request['commission'];
+        $sell_tic->save();
+
+        return redirect()->route('admin.discount.index')->with('success', 'Ticket update successfully.');
 
     }
 
@@ -159,7 +189,24 @@ class DiscountController extends Controller
         if (!$item) {
             return to_route('admin.discount.condition')->with('success-trash', 'item not found.');
         } else {
-            return view('admin.discount.condition_edit', compact('item'));
+            return view('admin.discount.condition_edit', compact('item', 'id'));
+        }
+
+    }
+
+    public function condition_update(Request $request, $id)
+    {
+        // Retrieve item data by ID
+        $item = Discount::find($id);
+
+        if (!$item) {
+            return to_route('admin.discount.condition')->with('success-trash', 'item not found.');
+        } else {
+
+            $item->name = $request['name'];
+            $item->save();
+
+            return to_route('admin.discount.condition')->with('success', 'Condition update successfully.');
         }
 
     }

@@ -29,21 +29,6 @@
                                                 Add Revenue, edit and more.
                                             </p>
                                         </div>
-
-                                        <div>
-                                            <form action="" method="get">
-                                                <div class="inline-flex gap-x-2">
-                                                    <input type="date" name="date"
-                                                        class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                                        placeholder="mm/dd/yyyy" value="<?php echo date('Y-m-d'); ?>">
-
-                                                    <button type="submit"
-                                                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                                                        Search
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
                                         <div>
                                             <div class="inline-flex gap-x-2">
                                                 <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
@@ -72,6 +57,28 @@
                                         </div>
                                     </div>
                                     <!-- End Header -->
+
+                                    <form action="" method="get">
+                                        <div class="inline-flex gap-x-2 p-2 md:flex md:justify-between md:items-center">
+
+                                            <select name="name" id="name" required
+                                                class="py-2 px-3 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                                                <option selected disabled>Select bus</option>
+                                                @foreach ($income_from as $item)
+                                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+
+                                            <input type="date" name="date"
+                                                class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                                placeholder="mm/dd/yyyy" value="<?php echo date('Y-m-d'); ?>">
+
+                                            <button type="submit"
+                                                class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                                Search
+                                            </button>
+                                        </div>
+                                    </form>
 
                                     <!-- Table -->
                                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -153,7 +160,7 @@
                                                     <td class="h-px w-px whitespace-nowrap">
                                                         <div class="px-6 py-1.5">
                                                             <a class="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium"
-                                                                href="#">
+                                                                href="{{ route('admin.income.edit', ['id' => $item->id]) }}">
                                                                 Edit
                                                             </a>
                                                         </div>

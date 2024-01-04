@@ -19,7 +19,7 @@
 
                 </div>
 
-                <form action="{{ route('admin.discount.sell_ticketSave') }}" method="POST">
+                <form action="{{ route('admin.discount.sell_ticket_update', ['id' => $id]) }}" method="POST">
                     @csrf
                     <!-- Grid -->
                     <div class="grid sm:grid-cols-12 gap-2 sm:gap-6">
@@ -32,7 +32,7 @@
                         <div class="sm:col-span-9">
                             <input type="date" id="date" name="date" required
                                 class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                placeholder="mm/dd/yyyy" value="<?php echo date('Y-m-d'); ?>">
+                                placeholder="mm/dd/yyyy" value="{{ $history->date }}">
                         </div>
                         <!-- End Col -->
 
@@ -44,7 +44,7 @@
                         <div class="sm:col-span-9">
                             <input type="time" id="time" name="time" required
                                 class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                placeholder="hh:mm" value="<?php echo date('H:i'); ?>">
+                                placeholder="hh:mm" value="{{ $history->time }}">
                         </div>
                         <!-- End Col -->
 
@@ -59,7 +59,8 @@
                                 class="py-2 px-3 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
                                 <option selected>Select bus</option>
                                 @foreach ($category as $item)
-                                    <option value="{{ $item->name }}" data-value="{{ $item->quantity }}">
+                                    <option value="{{ $item->name }}"
+                                        {{ $item->name == $history->company_name ? 'selected' : '' }}>
                                         {{ $item->name }}
                                     </option>
                                 @endforeach
@@ -73,15 +74,9 @@
                         <!-- End Col -->
 
                         <div class="sm:col-span-9">
-                            <div class="sm:flex gap-3">
-                                <input type="text" id="mobile" name="mobile" required
-                                    onkeyup="getName(this.value)"
-                                    class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                    placeholder="01751944774" maxlength="11">
-                                <input type="text" id="last_tic" disabled
-                                    class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                    placeholder="Last Travel">
-                            </div>
+                            <input type="text" id="mobile" name="mobile" required onkeyup="getName(this.value)"
+                                class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                                placeholder="01751944774" maxlength="11" value="{{ $history->mobile }}">
                         </div>
                         <!-- End Col -->
 
@@ -93,7 +88,7 @@
                         <div class="sm:col-span-9">
                             <input type="text" id="name" name="name" required
                                 class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                placeholder="Mr. ">
+                                placeholder="Mr. " value="{{ $history->name }}">
                         </div>
                         <!-- End Col -->
 
@@ -106,7 +101,7 @@
                         <div class="sm:col-span-9">
                             <input type="number" id="quantity" name="quantity" required
                                 class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                placeholder="10">
+                                placeholder="10" value="{{ $history->quantity }}">
                         </div>
                         <!-- End Col -->
 
@@ -118,7 +113,7 @@
                         <div class="sm:col-span-9">
                             <input type="number" id="commission" name="commission" required
                                 class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                                placeholder="50">
+                                placeholder="50" value="{{ $history->t_commission }}">
                         </div>
                         <!-- End Col -->
 
@@ -163,15 +158,11 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                // Parse the JSON response
-                var response = JSON.parse(this.responseText);
-
                 // Update the name input field with the retrieved name without double quotes
-                document.getElementById("name").value = response.name;
-                document.getElementById("last_tic").value = response.last_tic;
+                var name = this.responseText.replace(/^"(.*)"$/, '$1');
+                document.getElementById("name").value = name;
             }
         };
-
 
         // Use Laravel route() function to generate the URL
         var url = "{{ route('get_name', ['mobile' => 'temp']) }}"; // 'temp' is a placeholder
